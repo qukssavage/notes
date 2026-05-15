@@ -1,0 +1,7 @@
+export { default as searchIcon } from '../assets/images/search.svg'
+export { default as editIcon } from '../assets/images/edit.svg'
+export { default as gridIcon } from '../assets/images/grid.svg'
+export { default as listIcon } from '../assets/images/list.svg'
+export { default as removeIcon } from '../assets/images/remove.svg'
+export { default as resetIcon } from '../assets/images/reset.svg'
+export { default as backIcon } from '../assets/images/back.svg'
