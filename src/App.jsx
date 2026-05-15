@@ -46,7 +46,7 @@ const App = () => {
       <TodoContext.Provider
         value={{
           closeModal: closeModalHandler,
-          addNote: addNoteHandler,
+          addNote:  addNoteHandler,
         }}
       >
         <Navbar />
