@@ -42,9 +42,22 @@ const App = () => {
 
   const closeModalHandler = () => {
     setIsModalOpen(false);
+    setIsEdit(false);
+    setEditNote(null);
   };
-  const addNoteHandler = (note) => {
-    setNotes([...notes, note]);
+
+  const addOrChangeNoteHandler = (note) => {
+    if (editNote?.id) {
+      const updNotes = notes.map((item) => {
+        if (note.id == item.id) {
+          return note;
+        }
+        return item;
+      });
+      setNotes(updNotes);
+    } else {
+      setNotes([...notes, note]);
+    }
   };
 
   return (
@@ -52,7 +65,7 @@ const App = () => {
       <TodoContext.Provider
         value={{
           closeModal: closeModalHandler,
-          addNote: addNoteHandler,
+          addOrChangeNote: addOrChangeNoteHandler,
           changeHandler,
         }}
       >

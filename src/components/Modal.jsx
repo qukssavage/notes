@@ -3,29 +3,23 @@ import { v4 } from "uuid";
 import { TodoContext } from "../context/todoContext";
 
 const Modal = ({ isEdit, editNote }) => {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const { closeModal, addNote } = useContext(TodoContext);
+  const [title, setTitle] = useState(editNote?.title ?? "");
+  const [desc, setDesc] = useState(editNote?.desc ?? "");
+  const { closeModal, addOrChangeNote } = useContext(TodoContext);
 
-  const add = () => {
+  const addOrChange = () => {
     if (title.length > 2 && desc.length > 2) {
       const note = {
-        id: v4(),
+        id: editNote.id ?? v4(),
         title,
         desc,
         date: new Date().toLocaleDateString(),
       };
 
-      addNote(note);
+      addOrChangeNote(note);
       closeModal();
       setTitle("");
       setDesc("");
-    } else if (title.length > 2 && desc.length < 2) {
-      alert('Введите больше 2 символов в поле "Content"');
-    } else if (title.length < 2 && desc.length > 2) {
-      alert('Введите больше 2 символов в поле "Title"');
-    } else {
-      alert("Оба поле пусты!");
     }
   };
 
@@ -64,7 +58,7 @@ const Modal = ({ isEdit, editNote }) => {
           </button>
           <button
             className="modal__block-bottom_btn purple"
-            onClick={() => add()}
+            onClick={() => addOrChange()}
           >
             {isEdit ? "Изменить" : "Добавить"}
           </button>
