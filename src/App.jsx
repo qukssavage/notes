@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Notes from "./components/Notes";
 import Modal from "./components/Modal";
 import { editIcon } from "./utils/img";
+import { TodoContext } from "./context/TodoContext";
 
 const App = () => {
   const [notes, setNotes] = useState([
@@ -42,16 +43,21 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="container">
-        <Notes notes={notes} />
-      </div>
-      <button className="addBtn" onClick={() => openModalHandler()}>
-        <img src={editIcon} alt="" />
-      </button>
-      {isModalOpen && (
-        <Modal closeModal={closeModalHandler} addNote={addNoteHandler} />
-      )}
+      <TodoContext.Provider
+        value={{
+          closeModal: closeModalHandler,
+          addNote: addNoteHandler,
+        }}
+      >
+        <Navbar />
+        <div className="container">
+          <Notes notes={notes} />
+        </div>
+        <button className="addBtn" onClick={() => openModalHandler()}>
+          <img src={editIcon} alt="" />
+        </button>
+        {isModalOpen && <Modal />}
+      </TodoContext.Provider>
     </>
   );
 };

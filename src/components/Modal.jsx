@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 } from "uuid";
+import { TodoContext } from "../context/TodoContext";
 
-const Modal = ({ closeModal, addNote }) => {
+const Modal = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const { closeModal, addNote } = useContext(TodoContext);
 
   const add = () => {
     if (title.length > 2 && desc.length > 2) {
@@ -18,6 +20,12 @@ const Modal = ({ closeModal, addNote }) => {
       closeModal();
       setTitle("");
       setDesc("");
+    } else if (title.length > 2 && desc.length < 2) {
+      alert('Введите больше 2 символов в поле "Content"')
+    } else if (title.length < 2 && desc.length > 2) {
+      alert('Введите больше 2 символов в поле "Title"')
+    } else {
+      alert('Оба поле пусты!')
     }
   };
 
