@@ -1,19 +1,24 @@
 import clsx from "clsx";
 import { editIcon, removeIcon } from "../utils/img";
+import { useContext } from "react";
+import { TodoContext } from "../context/todoContext";
 
 const NotesItem = ({ note, view }) => {
-  const itemTop = clsx("notes__list-item_top", {active: !view})
+  const itemTop = clsx("notes__list-item_top", { active: !view });
+  const { changeHandler } = useContext(TodoContext);
+
   return (
     <div className="notes__list-item">
       <div className={itemTop}>
         <h4 className="notes__list-item_top-title">{note.title}</h4>
         <p className="notes__list-item_top-date">{note.date}</p>
       </div>
-      <p className="notes__list-itme_desc">
-        {note.desc}
-      </p>
+      <p className="notes__list-itme_desc">{note.desc}</p>
       <div className="notes__list-item_bottom">
-        <button className="notes__list-item_bottom-btn purple">
+        <button
+          className="notes__list-item_bottom-btn purple"
+          onClick={() => changeHandler(note)}
+        >
           <img src={editIcon} alt="" />
           <span>РЕДАКТИРОВАТЬ</span>
         </button>

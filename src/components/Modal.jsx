@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { v4 } from "uuid";
-import { TodoContext } from "../context/TodoContext";
+import { TodoContext } from "../context/todoContext";
 
-const Modal = () => {
+const Modal = ({ isEdit, editNote }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const { closeModal, addNote } = useContext(TodoContext);
@@ -21,18 +21,20 @@ const Modal = () => {
       setTitle("");
       setDesc("");
     } else if (title.length > 2 && desc.length < 2) {
-      alert('Введите больше 2 символов в поле "Content"')
+      alert('Введите больше 2 символов в поле "Content"');
     } else if (title.length < 2 && desc.length > 2) {
-      alert('Введите больше 2 символов в поле "Title"')
+      alert('Введите больше 2 символов в поле "Title"');
     } else {
-      alert('Оба поле пусты!')
+      alert("Оба поле пусты!");
     }
   };
 
   return (
     <div className="modal">
       <div className="modal__block">
-        <h3 className="modal__block-title">Добавить заметку</h3>
+        <h3 className="modal__block-title">
+          {isEdit ? "Изменить заметку" : "Добавить заметку"}
+        </h3>
         <div className="modal__block-form">
           <label>
             <input
@@ -64,7 +66,7 @@ const Modal = () => {
             className="modal__block-bottom_btn purple"
             onClick={() => add()}
           >
-            Добавить
+            {isEdit ? "Изменить" : "Добавить"}
           </button>
         </div>
       </div>
